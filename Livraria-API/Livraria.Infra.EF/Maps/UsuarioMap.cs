@@ -44,8 +44,8 @@ namespace Livraria.Infra.EF.Maps
 
             builder.HasOne(x => x.Endereco)
                 .WithOne()
-                .HasPrincipalKey<EnderecoMap>(x => x.Id)
-                .HasForeignKey<Usuario>(x => x.SituacaoId);
+                .HasPrincipalKey<Endereco>(x => x.Id)
+                .HasForeignKey<Usuario>(x => x.EnderecoId);
 
             builder.Property(x => x.InstituicaoId)
                 .HasColumnName("InstituicaoId");

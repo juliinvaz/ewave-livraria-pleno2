@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Livraria.Infra.EF.Maps
 {
-    class LivroMap : IEntityTypeConfiguration<Livro>
+    public class LivroMap : IEntityTypeConfiguration<Livro>
     {
         public void Configure(EntityTypeBuilder<Livro> builder)
         {
