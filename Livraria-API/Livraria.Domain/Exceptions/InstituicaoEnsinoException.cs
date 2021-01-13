@@ -14,4 +14,10 @@ namespace Livraria.Domain.Exceptions
     {
         public InstituicaoEnsinoCNPJJaInformadoException() : base("Já existe insituição de ensino com o CNPJ informado.") { }
     }
+
+    public class InstituicaoEnsinoSituacaoInvalidaParaAlterarException : LivrariaException
+    {
+        public InstituicaoEnsinoSituacaoInvalidaParaAlterarException() : base($"A situação atual da instituição de ensino não permite alteração.") { }
+    }
+
 }

@@ -19,14 +19,52 @@ namespace Livraria.Services
             _repository = repository;
         }
 
-        public Task AlterarAsync(int id, string nome, string cnpj, string telefone, int cidadeId, string logadouro, string cep, string numero)
+        public async Task AlterarAsync(int id, string nome, string cnpj, string telefone, int cidadeId, string logadouro, string cep, string numero)
         {
-            throw new NotImplementedException();
+            cnpj = cnpj.Replace(".", "").Replace("/", "").Replace("-", "");
+            cep = cep.Replace("-", "");
+
+            if (id.IsLessThanZero()) throw new ArgumentNullException(nameof(id));
+            if (nome.IsNullOrEmpty()) throw new ArgumentNullException(nameof(nome));
+            if (cnpj.IsNullOrEmpty()) throw new ArgumentNullException(nameof(cnpj));
+            if (telefone.IsNullOrEmpty()) throw new ArgumentNullException(nameof(telefone));
+            if (cidadeId.IsLessThanZero()) throw new ArgumentNullException(nameof(cidadeId));
+            if (logadouro.IsNullOrEmpty()) throw new ArgumentNullException(nameof(logadouro));
+            if (cep.IsNullOrEmpty()) throw new ArgumentNullException(nameof(cep));
+
+            var instituicaoEnsino = await _repository.GetByAsync(id);
+            if (instituicaoEnsino.IsNull()) throw new InstituicaoEnsinoNaoEncontradaException();
+
+            if (instituicaoEnsino.SituacaoId != (int)EInstituicaoEnsinoSituacao.Ativo) throw new InstituicaoEnsinoSituacaoInvalidaParaAlterarException();
+
+            var existeCNPJCadastrado = await _repository.ExisteCNPJCadastradoAsync(cnpj, id);
+            if (existeCNPJCadastrado) throw new InstituicaoEnsinoCNPJJaInformadoException();
+
+            //TODO Validar se a cidade inforada existe no banco de dados
+            //var cidade = await _cidadeRepository.getByIdAsync(cidadeId)
+            //if (cidade.IsNull()) throw new CidadeNaoEncontradaException();
+
+            instituicaoEnsino.Nome = nome;
+            instituicaoEnsino.CNPJ = cnpj;
+            instituicaoEnsino.Telefone = telefone;
+            instituicaoEnsino.Endereco.CidadeId = cidadeId;
+            instituicaoEnsino.Endereco.Logradouro = logadouro;
+            instituicaoEnsino.Endereco.CEP = cep;
+            instituicaoEnsino.Endereco.Numero = numero;
+
+            await _repository.UpdateAsync(instituicaoEnsino);
         }
 
-        public Task AtivarAsync(int id)
+        public async Task AtivarAsync(int id)
         {
-            throw new NotImplementedException();
+            if (id.IsLessThanZero()) throw new ArgumentNullException(nameof(id));
+
+            var instituicaoEnsino = await _repository.GetByAsync(id);
+            if (instituicaoEnsino.IsNull()) throw new InstituicaoEnsinoNaoEncontradaException();
+
+            instituicaoEnsino.SituacaoId = (int)EInstituicaoEnsinoSituacao.Ativo;
+
+            await _repository.UpdateAsync(instituicaoEnsino);
         }
 
         public async Task CriarAsync(string nome, string cnpj, string telefone, int cidadeId, string logadouro, string cep, string numero)
@@ -67,9 +105,16 @@ namespace Livraria.Services
             await _repository.CreateAsync(instituicao);
         }
 
-        public Task InativarAsync(int id)
+        public async Task InativarAsync(int id)
         {
-            throw new NotImplementedException();
+            if (id.IsLessThanZero()) throw new ArgumentNullException(nameof(id));
+
+            var instituicaoEnsino = await _repository.GetByAsync(id);
+            if (instituicaoEnsino.IsNull()) throw new InstituicaoEnsinoNaoEncontradaException();
+
+            instituicaoEnsino.SituacaoId = (int)EInstituicaoEnsinoSituacao.Inativo;
+
+            await _repository.UpdateAsync(instituicaoEnsino);
         }
     }
 }
