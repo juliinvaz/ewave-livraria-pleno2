@@ -1,20 +1,20 @@
 ﻿using Livraria.Domain.Exceptions;
-using Livraria.Domain.Models;
-using Livraria.Domain.Services;
-using Livraria.Infra.EF.Repositories;
+using Livraria.Domain;
+using Livraria.Domain.Repositories;
 using Livraria.Infra.Extentions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using Livraria.Domain.Services;
+using Livraria.Domain.Models;
+using Livraria.Domain.Enums;
 
 namespace Livraria.Services
 {
     public class InstituicaoEnsinoService : IInstituicaoEnsinoService
     {
-        private readonly InstituicaoEnsinoRepository _repository;
+        private readonly IInstuicaoEnsinoRepository _repository;
 
-        public InstituicaoEnsinoService(InstituicaoEnsinoRepository repository)
+        public InstituicaoEnsinoService(IInstuicaoEnsinoRepository repository)
         {
             _repository = repository;
         }
@@ -44,6 +44,10 @@ namespace Livraria.Services
             var existeCNPJCadastrado = await _repository.ExisteCNPJCadastradoAsync(cnpj, null);
             if (existeCNPJCadastrado) throw new InstituicaoEnsinoCNPJJaInformadoException();
 
+            //TODO Validar se a cidade inforada existe no banco de dados
+            //var cidade = await _cidadeRepository.getByIdAsync(cidadeId)
+            //if (cidade.IsNull()) throw new CidadeNaoEncontradaException();
+
             var endereco = new Endereco { 
                 CidadeId = cidadeId, 
                 Logradouro = logadouro,
@@ -56,12 +60,11 @@ namespace Livraria.Services
                 Nome = nome,
                 CNPJ = cnpj,
                 Telefone = telefone,
-                Endereco = endereco
+                Endereco = endereco,
+                SituacaoId = (int)EInstituicaoEnsinoSituacao.Ativo
             };
 
             await _repository.CreateAsync(instituicao);
-
-
         }
 
         public Task InativarAsync(int id)

@@ -54,7 +54,8 @@ namespace Livraria.API
 
             services.AddControllers();
             services.DataContextModuleRegister(Configuration);
-            services.RepositoryModuleModuleRegister(Configuration);
+            services.RepositoryModuleRegister();
+            services.ServiceModuleRegister();
 
         }
 

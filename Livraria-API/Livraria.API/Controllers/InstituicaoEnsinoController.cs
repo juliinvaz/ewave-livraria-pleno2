@@ -1,30 +1,32 @@
-﻿using Livraria.Infra.Data;
+﻿using Livraria.Domain.DTOs;
+using Livraria.Domain.Services;
+using Livraria.Infra.Data;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Livraria.API.Controllers
 {
+
     [Route("api/instituicoes-ensino")]
     [ApiController]
     public class InstituicaoEnsinoController : LivrariaController
     {
-        public InstituicaoEnsinoController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        private readonly IInstituicaoEnsinoService _instituicaoEnsinoService;
+        public InstituicaoEnsinoController(IUnitOfWork unitOfWork, IInstituicaoEnsinoService instituicaoEnsinoService) : base(unitOfWork)
         {
-
+            _instituicaoEnsinoService = instituicaoEnsinoService;
         }
 
         /// <summary>
-        ///  Testando Controller
+        ///  Criar instituição de ensino
         /// </summary>
         /// <returns></returns>
-        [HttpGet("teste")]
-        public async Task<IActionResult> TesteAsync()
+        [HttpPost("")]
+        public async Task<IActionResult> CriarAsync([FromBody] InstituicaoEnsinoDTO dto)
         {
-
-            return Ok(new { msg = "Ok"});
+            await _instituicaoEnsinoService.CriarAsync(dto.Nome, dto.CNPJ, dto.Telefone, dto.CidadeId, dto.Logradouro, dto.CEP, dto.Numero);
+            await UnitOfWork.CommitAsync();
+            return Ok();
         }
 
     }

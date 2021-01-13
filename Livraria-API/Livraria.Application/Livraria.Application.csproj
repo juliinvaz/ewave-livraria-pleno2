@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Livraria.Infra.EF\Livraria.Infra.EF.csproj" />
+    <ProjectReference Include="..\Livraria.Services\Livraria.Services.csproj" />
   </ItemGroup>
 
 </Project>

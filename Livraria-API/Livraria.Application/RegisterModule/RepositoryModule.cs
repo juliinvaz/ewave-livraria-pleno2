@@ -6,19 +6,21 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
+using System.Reflection;
 
 namespace Livraria.Application.Modules
 {
     public static class RepositoryModule
     {
-        public static void RepositoryModuleModuleRegister(this IServiceCollection services, IConfiguration configuration)
+        public static void RepositoryModuleRegister(this IServiceCollection services)
         {
-            var repositories = typeof(InstituicaoEnsinoRepository).Assembly.GetTypes()
-             .Where(t => t.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRepository<>) && !t.IsAbstract));
+            var repositories = Assembly.GetAssembly(typeof(InstituicaoEnsinoRepository))
+                .GetTypes().Where(x => x.Name.EndsWith("Repository"))
+                .ToDictionary(t => t.GetInterfaces()[1], t => t);
 
-            foreach (var repository in repositories)
+            foreach (var item in repositories)
             {
-                services.AddScoped(repository.GetInterfaces()[1], repository);
+                services.AddScoped(item.Key, item.Value);
             }
         }
     }

@@ -52,9 +52,9 @@ CREATE TABLE [dbo].[InstituicaoEnsino]
     [CNPJ] VARCHAR(14) NOT NULL,
     [Telefone] VARCHAR(11) NOT NULL,
     [SituacaoId] INT NOT NULL,
-    [EnredecoId] INT NOT NULL,
+    [EnderecoId] INT NOT NULL,
     CONSTRAINT [PK_InstituicaoEnsino] PRIMARY KEY CLUSTERED ([Id]) ON [PRIMARY],
-    CONSTRAINT [FK_InstituicaoEnsino_Endereco] FOREIGN KEY ([EnredecoId]) REFERENCES [dbo].[Endereco](Id),
+    CONSTRAINT [FK_InstituicaoEnsino_Endereco] FOREIGN KEY ([EnderecoId]) REFERENCES [dbo].[Endereco](Id),
     CONSTRAINT [FK_InstituicaoEnsino_InstituicaoEnsinoSituacao] FOREIGN KEY ([SituacaoId]) REFERENCES [dbo].[InstituicaoEnsinoSituacao](Id)
 )
 GO
@@ -75,10 +75,10 @@ CREATE TABLE [dbo].[Usuario]
     [Telefone] VARCHAR(11) NULL,
     [Email] VARCHAR(255) NULL,
     [SituacaoId] INT NOT NULL,
-    [EnredecoId] INT NULL,
+    [EnderecoId] INT NULL,
     [InstituicaoId] INT NOT NULL,
     CONSTRAINT [PK_Usuario] PRIMARY KEY CLUSTERED ([Id]) ON [PRIMARY],
-    CONSTRAINT [FK_Usuario_Endereco] FOREIGN KEY ([EnredecoId]) REFERENCES [dbo].[Endereco](Id),
+    CONSTRAINT [FK_Usuario_Endereco] FOREIGN KEY ([EnderecoId]) REFERENCES [dbo].[Endereco](Id),
     CONSTRAINT [FK_Usuario_IntituicaoEnsino] FOREIGN KEY ([InstituicaoId]) REFERENCES [dbo].[InstituicaoEnsino](Id),
     CONSTRAINT [FK_InstituicaoEnsino_UsuarioSituacao] FOREIGN KEY ([SituacaoId]) REFERENCES [dbo].[UsuarioSituacao](Id)
 )
