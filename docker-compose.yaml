@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+    db:
+      image: livraria-sqlserver
+      build:
+        context: .
+        dockerfile: ./DB/Dockerfile
+      ports:
+        - "1433:1433"
