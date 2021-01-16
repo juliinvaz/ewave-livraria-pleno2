@@ -52,7 +52,9 @@ namespace Livraria.API
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(opt =>
+                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.DataContextModuleRegister(Configuration);
             services.RepositoryModuleRegister();
             services.ServiceModuleRegister();

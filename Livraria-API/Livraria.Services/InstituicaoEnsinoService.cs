@@ -19,7 +19,7 @@ namespace Livraria.Services
             _repository = repository;
         }
 
-        public async Task AlterarAsync(int id, string nome, string cnpj, string telefone, int cidadeId, string logadouro, string cep, string numero)
+        public async Task AlterarAsync(int id, string nome, string cnpj, string telefone, int cidadeId, string logradouro, string cep, string numero)
         {
             cnpj = cnpj.Replace(".", "").Replace("/", "").Replace("-", "");
             cep = cep.Replace("-", "");
@@ -29,7 +29,7 @@ namespace Livraria.Services
             if (cnpj.IsNullOrEmpty()) throw new ArgumentNullException(nameof(cnpj));
             if (telefone.IsNullOrEmpty()) throw new ArgumentNullException(nameof(telefone));
             if (cidadeId.IsLessThanZero()) throw new ArgumentNullException(nameof(cidadeId));
-            if (logadouro.IsNullOrEmpty()) throw new ArgumentNullException(nameof(logadouro));
+            if (logradouro.IsNullOrEmpty()) throw new ArgumentNullException(nameof(logradouro));
             if (cep.IsNullOrEmpty()) throw new ArgumentNullException(nameof(cep));
 
             var instituicaoEnsino = await _repository.GetByAsync(id);
@@ -48,7 +48,7 @@ namespace Livraria.Services
             instituicaoEnsino.CNPJ = cnpj;
             instituicaoEnsino.Telefone = telefone;
             instituicaoEnsino.Endereco.CidadeId = cidadeId;
-            instituicaoEnsino.Endereco.Logradouro = logadouro;
+            instituicaoEnsino.Endereco.Logradouro = logradouro;
             instituicaoEnsino.Endereco.CEP = cep;
             instituicaoEnsino.Endereco.Numero = numero;
 
@@ -67,7 +67,7 @@ namespace Livraria.Services
             await _repository.UpdateAsync(instituicaoEnsino);
         }
 
-        public async Task CriarAsync(string nome, string cnpj, string telefone, int cidadeId, string logadouro, string cep, string numero)
+        public async Task CriarAsync(string nome, string cnpj, string telefone, int cidadeId, string logradouro, string cep, string numero)
         {
             cnpj = cnpj.Replace(".", "").Replace("/", "").Replace("-", "");
             cep = cep.Replace("-", "");
@@ -76,7 +76,7 @@ namespace Livraria.Services
             if (cnpj.IsNullOrEmpty()) throw new ArgumentNullException(nameof(cnpj));
             if (telefone.IsNullOrEmpty()) throw new ArgumentNullException(nameof(telefone));
             if (cidadeId.IsLessThanZero()) throw new ArgumentNullException(nameof(cidadeId));
-            if (logadouro.IsNullOrEmpty()) throw new ArgumentNullException(nameof(logadouro));
+            if (logradouro.IsNullOrEmpty()) throw new ArgumentNullException(nameof(logradouro));
             if (cep.IsNullOrEmpty()) throw new ArgumentNullException(nameof(cep));
 
             var existeCNPJCadastrado = await _repository.ExisteCNPJCadastradoAsync(cnpj, null);
@@ -88,7 +88,7 @@ namespace Livraria.Services
 
             var endereco = new Endereco { 
                 CidadeId = cidadeId, 
-                Logradouro = logadouro,
+                Logradouro = logradouro,
                 CEP = cep,
                 Numero = numero
             };

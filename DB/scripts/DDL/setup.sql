@@ -49,7 +49,7 @@ CREATE TABLE [dbo].[InstituicaoEnsino]
 (
     [Id] INT IDENTITY (1,1) NOT NULL,
     [Nome] VARCHAR(255) NOT NULL,
-    [CNPJ] VARCHAR(14) NOT NULL,
+    [CNPJ] VARCHAR(14) NOT NULL UNIQUE,
     [Telefone] VARCHAR(11) NOT NULL,
     [SituacaoId] INT NOT NULL,
     [EnderecoId] INT NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE [dbo].[Usuario]
 (
     [Id] INT IDENTITY (1,1) NOT NULL,
     [Nome] VARCHAR(255) NOT NULL,
-    [CPF] VARCHAR(11) NOT NULL,
+    [CPF] VARCHAR(11) NOT NULL UNIQUE,
     [Telefone] VARCHAR(11) NULL,
     [Email] VARCHAR(255) NULL,
     [SituacaoId] INT NOT NULL,
