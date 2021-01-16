@@ -18,11 +18,11 @@ namespace Livraria.Infra.EF.Repositories
 
         public Task<bool> ExisteCNPJCadastradoAsync(string cnpj, int? instituicaoId)
         {
-            var result = Context.Set<InstituicaoEnsino>().Local.Any(x => x.CNPJ.Equals(cnpj) && (instituicaoId.IsNotNull() && x.Id == instituicaoId));
+            var result = Context.Set<InstituicaoEnsino>().Local.Any(x => (!instituicaoId.HasValue && x.CNPJ.Equals(cnpj)) || (instituicaoId.HasValue && x.CNPJ.Equals(cnpj) && x.Id != instituicaoId.Value));
 
-            if (result.IsNull())
+            if (!result)
             {
-                result = Context.Set<InstituicaoEnsino>().Any(x => x.CNPJ.Equals(cnpj) && (instituicaoId.IsNotNull() && x.Id == instituicaoId));
+                result = Context.Set<InstituicaoEnsino>().Any(x => (!instituicaoId.HasValue && x.CNPJ.Equals(cnpj)) || (instituicaoId.HasValue && x.CNPJ.Equals(cnpj) && x.Id != instituicaoId.Value));
             }
 
             return Task.FromResult(result);

@@ -15,7 +15,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Livraria.Infra", "Livraria.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Livraria.Services", "Livraria.Services\Livraria.Services.csproj", "{AE2EA2A7-1E9D-4C8A-8CF3-1A67E63F7FC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Livraria.Tests", "Livraria.Tests\Livraria.Tests.csproj", "{A80C294E-C801-4DF2-8D3A-1012ABDCFC13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Livraria.Tests", "Livraria.Tests\Livraria.Tests.csproj", "{A80C294E-C801-4DF2-8D3A-1012ABDCFC13}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C528F4AD-4974-476B-B99C-B3A1F8185AB7}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

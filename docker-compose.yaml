@@ -8,3 +8,14 @@ services:
         dockerfile: ./DB/Dockerfile
       ports:
         - "1433:1433"
+
+    backend:
+      image: livraria-backend
+      restart: always
+      build: ./Livraria-API/
+      environment:
+        - ASPNETCORE_ENVIRONMENT=Docker
+      ports:
+        - "8000:80"
+      depends_on:
+        - db    
