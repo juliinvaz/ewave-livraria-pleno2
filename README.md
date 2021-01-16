@@ -24,6 +24,7 @@
     Permite reservar um livro e consultar. 
 
 ## Implementações futuras
+- Criar ennpoint para realizar upload de arquivo (para capa)
 - Dapper (Evitar os inner desnecessários pelo EF)
 - HangFire (Dar aviso sobre atrados para o administrador)
 - Criar FrontEnd
