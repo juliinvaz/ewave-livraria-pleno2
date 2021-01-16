@@ -31,7 +31,7 @@
 # Executar o Projeto
 Para executar o projeto, é necessário [docker](https://www.docker.com  "docker") instalado e rodando na sua máquina com containers base em LINUX e portas 1433 e 8000 disponíveis.
 ```
-> git clone https://https://github.com/juliinvaz/ewave-livraria-pleno2
+> git clone https://github.com/juliinvaz/ewave-livraria-pleno2.git
 > cd ewave-livraria-pleno2
 > docker-compose up
 ```
