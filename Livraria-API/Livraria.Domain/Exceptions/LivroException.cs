@@ -19,6 +19,12 @@ namespace Livraria.Domain.Exceptions
     {
         public LivroSituacaoInvalidaParaInativarException() : base($"A situação atual do livro não permite inativação.") { }
     }
-    
+
+
+    public class LivroSituacaoInvalidaParaAtivarException : LivrariaException
+    {
+        public LivroSituacaoInvalidaParaAtivarException() : base($"A situação atual do livro não permite ativação.") { }
+    }
+
 
 }

@@ -8,8 +8,8 @@ namespace Livraria.Domain.Services
 {
     public interface ILivroService
     {
-        Task CriarAsync(string titulo, string genero, string autor, string sinopse, string capa, int situacaoId);
-        Task AlterarAsync(int id, string titulo, string genero, string autor, string sinopse, string capa, int situacaoId);
+        Task CriarAsync(string titulo, string genero, string autor, string sinopse, string capa);
+        Task AlterarAsync(int id, string titulo, string genero, string autor, string sinopse, string capa);
         Task AtivarAsync(int id);
         Task InativarAsync(int id);
 

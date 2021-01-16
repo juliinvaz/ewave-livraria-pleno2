@@ -11,7 +11,6 @@ namespace Livraria.Domain.DTOs
         public string Autor { get; set; }
         public string Sinopse { get; set; }
         public string Capa { get; set; }
-        public int SituacaoId { get; set; }
 
     }
 }

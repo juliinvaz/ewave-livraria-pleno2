@@ -12,10 +12,8 @@ namespace Livraria.Infra.EF.Repositories
 {
     public class EstadoRepository : Repository<Estado>, IEstadoRepository
     {
-        private readonly DataContext Context;
         public EstadoRepository(DataContext dataContext) : base(dataContext)
         {
-            Context = dataContext;
         }
 
         public async Task<IEnumerable<Estado>> ObterTodosAsync()

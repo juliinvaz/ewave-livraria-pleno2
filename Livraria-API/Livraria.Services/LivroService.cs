@@ -20,7 +20,7 @@ namespace Livraria.Services
             _repository = repository;
         }
 
-        public async Task AlterarAsync(int id, string titulo, string genero, string autor, string sinopse, string capa, int situacaoId)
+        public async Task AlterarAsync(int id, string titulo, string genero, string autor, string sinopse, string capa)
         {
 
             if (id.IsLessThanZero()) throw new ArgumentNullException(nameof(id));
@@ -29,26 +29,17 @@ namespace Livraria.Services
             if (autor.IsNullOrEmpty()) throw new ArgumentNullException(nameof(autor));
             if (sinopse.IsNullOrEmpty()) throw new ArgumentNullException(nameof(sinopse));
             if (capa.IsNullOrEmpty()) throw new ArgumentNullException(nameof(capa));
-            if (situacaoId.IsLessThanZero()) throw new ArgumentNullException(nameof(situacaoId));
             
             var livro = await _repository.GetByAsync(id);
             if (livro.IsNull()) throw new LivroNaoEncontradoException();
 
-            if (livro.SituacaoId != (int)EInstituicaoEnsinoSituacao.Ativo) throw new LivroInvalidoParaAlterarException();
-
-            //var existeCPFCadastrado = await _repository.ExisteCPFCadastradoAsync(cpf, id);
-            //if (existeCPFCadastrado) throw new UsuarioCPFJaInformadoException();
-
-            //TODO Validar se a cidade inforada existe no banco de dados
-            //var cidade = await _cidadeRepository.getByIdAsync(cidadeId)
-            //if (cidade.IsNull()) throw new CidadeNaoEncontradaException();
+            if (livro.SituacaoId != (int)ELivroSituacao.Disponivel) throw new LivroInvalidoParaAlterarException();
 
             livro.Titulo = titulo;
             livro.Genero = genero;
             livro.Autor = autor;
             livro.Sinopse = sinopse;
             livro.Capa = capa;
-            livro.Situacao.Id = situacaoId;
 
             await _repository.UpdateAsync(livro);
         }
@@ -60,12 +51,14 @@ namespace Livraria.Services
             var livro = await _repository.GetByAsync(id);
             if (livro.IsNull()) throw new LivroNaoEncontradoException();
 
-            livro.SituacaoId = (int)EUsuarioSituacao.Ativo;
+            if (livro.SituacaoId != (int)ELivroSituacao.Inativo) throw new LivroSituacaoInvalidaParaAtivarException();
+
+            livro.SituacaoId = (int)ELivroSituacao.Disponivel;
 
             await _repository.UpdateAsync(livro);
         }
 
-        public async Task CriarAsync(string titulo, string genero, string autor, string sinopse, string capa, int situacaoId)
+        public async Task CriarAsync(string titulo, string genero, string autor, string sinopse, string capa)
         {
 
             if (titulo.IsNullOrEmpty()) throw new ArgumentNullException(nameof(titulo));
@@ -73,14 +66,6 @@ namespace Livraria.Services
             if (autor.IsNullOrEmpty()) throw new ArgumentNullException(nameof(autor));
             if (sinopse.IsNullOrEmpty()) throw new ArgumentNullException(nameof(sinopse));
             if (capa.IsNullOrEmpty()) throw new ArgumentNullException(nameof(capa));
-            if (situacaoId.IsLessThanZero()) throw new ArgumentNullException(nameof(situacaoId));
-
-            //var existeCPFCadastrado = await _repository.ExisteCPFCadastradoAsync(cpf, null);
-            //if (existeCPFCadastrado) throw new UsuarioCPFJaInformadoException();
-
-            //TODO Validar se a cidade inforada existe no banco de dados
-            //var cidade = await _cidadeRepository.getByIdAsync(cidadeId)
-            //if (cidade.IsNull()) throw new CidadeNaoEncontradaException();
 
             var livro = new Livro
             {
@@ -89,7 +74,7 @@ namespace Livraria.Services
                 Autor = autor,
                 Sinopse = sinopse,
                 Capa = capa,
-                SituacaoId = (int)EInstituicaoEnsinoSituacao.Ativo
+                SituacaoId = (int)ELivroSituacao.Disponivel
             };
 
             await _repository.CreateAsync(livro);
@@ -104,7 +89,7 @@ namespace Livraria.Services
 
             if (livro.SituacaoId != (int)ELivroSituacao.Disponivel) throw new LivroSituacaoInvalidaParaInativarException();
 
-            livro.SituacaoId = (int)EInstituicaoEnsinoSituacao.Inativo;
+            livro.SituacaoId = (int)ELivroSituacao.Inativo;
 
             await _repository.UpdateAsync(livro);
         }
@@ -123,7 +108,6 @@ namespace Livraria.Services
         {
             return await _repository.ObterTodosLivrosAsync();
         }
-
 
     }
 }

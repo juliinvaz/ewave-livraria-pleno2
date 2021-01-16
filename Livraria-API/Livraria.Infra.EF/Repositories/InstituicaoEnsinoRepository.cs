@@ -10,12 +10,9 @@ using System.Threading.Tasks;
 namespace Livraria.Infra.EF.Repositories
 {
     public class InstituicaoEnsinoRepository : Repository<InstituicaoEnsino>, IInstuicaoEnsinoRepository
-    {
-        protected DataContext Context { get; }
+    {        
         public InstituicaoEnsinoRepository(DataContext dataContext) : base(dataContext) 
-        {
-            Context = dataContext;
-            
+        {            
         }
 
         public Task<bool> ExisteCNPJCadastradoAsync(string cnpj, int? instituicaoId)

@@ -9,10 +9,8 @@ namespace Livraria.Infra.EF.Repositories
 {
     public class LivroRepository : Repository<Livro>, ILivroRepository
     {
-        private readonly DataContext Context;
         public LivroRepository(DataContext dataContext) : base(dataContext)
         {
-            Context = dataContext;
         }
 
         public async Task<IEnumerable<Livro>> ObterLivrosPorSituacaoAsync(int situacaoId)

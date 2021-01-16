@@ -25,7 +25,7 @@ namespace Livraria.API.Controllers
         [HttpPost("")]
         public async Task<IActionResult> CriarAsync([FromBody] LivroDTO dto)
         {
-            await _livroService.CriarAsync(dto.Titulo, dto.Genero, dto.Autor, dto.Sinopse, dto.Capa, dto.SituacaoId);
+            await _livroService.CriarAsync(dto.Titulo, dto.Genero, dto.Autor, dto.Sinopse, dto.Capa);
             await UnitOfWork.CommitAsync();
             return Ok();
         }
@@ -74,7 +74,7 @@ namespace Livraria.API.Controllers
         [HttpPut("{id:int}")]
         public async Task<IActionResult> AlterarAsync(int id, [FromBody] LivroDTO dto)
         {
-            await _livroService.AlterarAsync(id, dto.Titulo, dto.Genero, dto.Autor, dto.Sinopse, dto.Capa, dto.SituacaoId);
+            await _livroService.AlterarAsync(id, dto.Titulo, dto.Genero, dto.Autor, dto.Sinopse, dto.Capa);
             await UnitOfWork.CommitAsync();
             return Ok();
         }

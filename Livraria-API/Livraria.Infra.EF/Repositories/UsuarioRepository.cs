@@ -11,11 +11,9 @@ namespace Livraria.Infra.EF.Repositories
 {
     public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
     {
-        protected DataContext Context { get; }
+     
         public UsuarioRepository(DataContext dataContext) : base(dataContext) 
-        {
-            Context = dataContext;
-            
+        {         
         }
 
         public Task<bool> ExisteCPFCadastradoAsync(string cpf, int? id)

@@ -9,10 +9,9 @@ namespace Livraria.Infra.EF.Repositories
 {
     public class CidadeRepository : Repository<Cidade>, ICidadeRepository
     {
-        private readonly DataContext Context;
+       
         public CidadeRepository(DataContext dataContext) : base(dataContext)
-        {
-            Context = dataContext;
+        {    
         }
 
         public async Task<IEnumerable<Cidade>> ObterCidadesPorEstadoAsync(int estadoId)

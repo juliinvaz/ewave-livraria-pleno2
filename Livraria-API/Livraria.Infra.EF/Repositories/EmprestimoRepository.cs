@@ -10,12 +10,9 @@ using System.Threading.Tasks;
 namespace Livraria.Infra.EF.Repositories
 {
     public class EmprestimoRepository : Repository<Emprestimo>, IEmprestimoRepository
-    {
-        protected DataContext Context { get; }
+    { 
         public EmprestimoRepository(DataContext dataContext) : base(dataContext) 
-        {
-            Context = dataContext;
-            
+        {       
         }
 
         public Task<int> ObterQuantidadeDeEmpestimosEmAndamentoPorUsuarioAsync(int usuarioId)
