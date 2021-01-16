@@ -28,23 +28,7 @@ namespace Livraria.API.Controllers
             await _emprestimoService.CriarAsync(dto.UsuarioId, dto.LivroId);
             await UnitOfWork.CommitAsync();
             return Ok();
-        }
-
-
-        /// <summary>
-        /// Altera um emprestimo
-        /// </summary>
-        /// <param name="id">Id do Emprestimo</param>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [HttpPut("{id:int}")]
-        public async Task<IActionResult> AlterarAsync(int id, [FromBody] EmprestimoDTO dto)
-        {
-            await _emprestimoService.AlterarAsync(id, dto.UsuarioId, dto.LivroId);
-            await UnitOfWork.CommitAsync();
-            return Ok();
-        }
-
+        }   
 
         /// <summary>
         /// Devolve um emprestimo.

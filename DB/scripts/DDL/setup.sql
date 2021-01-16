@@ -118,3 +118,25 @@ CREATE TABLE [dbo].[Emprestimo]
     CONSTRAINT [FK_Emprestimo_Livro] FOREIGN KEY ([LivroId]) REFERENCES [dbo].[Livro](Id)
 )
 GO
+
+CREATE TABLE [dbo].[ReservaSituacao] 
+(
+    [Id] INT NOT NULL,
+    [Nome] VARCHAR(180) NOT NULL,
+    CONSTRAINT [PK_ReservaSituacao] PRIMARY KEY ([Id]) ON [PRIMARY]
+)
+GO
+
+CREATE TABLE [dbo].[Reserva] 
+(
+    [Id] INT IDENTITY (1,1) NOT NULL,
+    [Data] DATETIME NOT NULL,
+    [SituacaoId] INT NOT NULL,
+    [UsuarioId] INT NOT NULL,
+    [LivroId] INT NOT NULL,
+    CONSTRAINT [PK_Reserva] PRIMARY KEY CLUSTERED ([Id]) ON [PRIMARY],
+    CONSTRAINT [FK_Reserva_ReservaSituacao] FOREIGN KEY ([SituacaoId]) REFERENCES [dbo].[ReservaSituacao](Id),
+    CONSTRAINT [FK_Reserva_Usuario] FOREIGN KEY ([UsuarioId]) REFERENCES [dbo].[Usuario](Id),
+    CONSTRAINT [FK_Reserva_Livro] FOREIGN KEY ([LivroId]) REFERENCES [dbo].[Livro](Id)
+)
+GO

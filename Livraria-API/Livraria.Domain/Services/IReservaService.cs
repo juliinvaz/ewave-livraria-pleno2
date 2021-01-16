@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace Livraria.Domain.Services
 {
-    public interface IEmprestimoService
+    public interface IReservaService
     {
         Task CriarAsync(int usuarioId, int livroId);
-        Task DevolverAsync(int id);
+        Task InativarAsync(int id);
+
+        Task<Reserva> ObterPorIdAsync(int id);
+        Task<IEnumerable<Reserva>> ObterTodosAsync();
+
     }
 }

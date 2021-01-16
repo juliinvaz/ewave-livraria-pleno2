@@ -21,5 +21,6 @@ namespace Livraria.Domain.Models
 
 
         public virtual ICollection<Emprestimo> Emprestimos { get; set; } = new HashSet<Emprestimo>();
+        public virtual ICollection<Reserva> Reservas { get; set; } = new HashSet<Reserva>();
     }
 }

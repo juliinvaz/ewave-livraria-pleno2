@@ -5618,3 +5618,8 @@ INSERT INTO [dbo].[LivroSituacao] ([Id], [Nome]) VALUES
 ( 3, 'Reservado'),
 ( 4, 'Inativo')
 GO
+
+INSERT INTO [dbo].[ReservaSituacao] ([Id], [Nome]) VALUES
+( 1, 'Ativo'),
+( 2, 'Inativo')
+GO

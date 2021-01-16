@@ -23,26 +23,7 @@ namespace Livraria.Services
             _repository = repository;
             _livroRepository = livroRepository;
             _usuarioRepository = usuarioRepository;
-        }
-
-        public async Task AlterarAsync(int id, int usuarioId, int livroId)
-        {
-
-            if (id.IsLessThanZero()) throw new ArgumentNullException(nameof(id));
-            if (usuarioId.IsLessThanZero()) throw new ArgumentNullException(nameof(usuarioId));
-            if (livroId.IsLessThanZero()) throw new ArgumentNullException(nameof(livroId));
-
-            var emprestimo = await _repository.GetByAsync(id);
-            if (emprestimo.IsNull()) throw new EmprestimoNaoEncontradoException();
-
-            emprestimo.Id = id;
-            emprestimo.UsuarioId = usuarioId;
-            emprestimo.LivroId = livroId;
-
-
-            await _repository.UpdateAsync(emprestimo);
-        }
-
+        }   
 
         public async Task CriarAsync(int usuarioId, int livroId)
         {
@@ -92,8 +73,9 @@ namespace Livraria.Services
             if (emprestimo.DataDevolucao.IsNotNull()) throw new EmprestimoJaDevolvidoException();
 
             emprestimo.DataDevolucao = DateTime.Now;
+            emprestimo.Livro.SituacaoId = (int)ELivroSituacao.Disponivel;
 
-            await _repository.UpdateAsync(emprestimo);
+            await _repository.UpdateAsync(emprestimo);            
         }
     }
 }
