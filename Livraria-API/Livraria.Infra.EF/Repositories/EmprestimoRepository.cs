@@ -1,6 +1,7 @@
 ﻿using Livraria.Domain.Models;
 using Livraria.Domain.Repositories;
 using Livraria.Infra.Extentions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,12 @@ namespace Livraria.Infra.EF.Repositories
             var possuiEmprestimoAtrasado = Context.Set<Emprestimo>().Any(x => x.UsuarioId == usuarioId && x.DataDevolucao.HasValue && x.Data.Date.AddDays(30) < x.DataDevolucao.Value.Date && x.DataDevolucao.Value.Date.AddDays(30) > DateTime.Now.Date);
 
             return Task.FromResult(possuiEmprestimoAtrasado);
+        }
+
+        public async Task<IEnumerable<Emprestimo>> ObterTodosEmprestimosAsync()
+        {
+            var emprestimos = await Context.Set<Emprestimo>().IgnoreAutoIncludes().ToListAsync();
+            return emprestimos;
         }
     }
 }

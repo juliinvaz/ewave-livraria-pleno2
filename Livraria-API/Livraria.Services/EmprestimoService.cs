@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Livraria.Domain.Services;
 using Livraria.Domain.Models;
 using Livraria.Domain.Enums;
+using System.Collections.Generic;
 
 namespace Livraria.Services
 {
@@ -76,6 +77,11 @@ namespace Livraria.Services
             emprestimo.Livro.SituacaoId = (int)ELivroSituacao.Disponivel;
 
             await _repository.UpdateAsync(emprestimo);            
+        }
+
+        public async Task<IEnumerable<Emprestimo>> ObterTodosAsync()
+        {
+            return await _repository.ObterTodosEmprestimosAsync();
         }
     }
 }

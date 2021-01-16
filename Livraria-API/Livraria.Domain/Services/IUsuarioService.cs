@@ -13,5 +13,7 @@ namespace Livraria.Domain.Services
         Task AtivarAsync(int id);
         Task InativarAsync(int id);
         Task InformarEnderecoAsync(int id, string logradouro, string numero, string cep, int cidadeId);
+        Task<IEnumerable<Usuario>> ObterTodosAsync();
+        Task<IEnumerable<Usuario>> ObterPorSituacaoAsync(int situacaoId);
     }
 }

@@ -30,6 +30,28 @@ namespace Livraria.API.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Retorna todas as instituicões de ensino
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("")]
+        public async Task<IActionResult> ObterTodosAsync()
+        {
+            var instituicaoEnsino = await _instituicaoEnsinoService.ObterTodosAsync();
+            return Ok(instituicaoEnsino);
+        }
+
+        /// <summary>
+        /// Retorna usuarios por SituacaoId
+        /// </summary>
+        /// <param name="situacaoId"> Id da Situação</param>
+        /// <returns></returns>
+        [HttpGet("por-situacao/{situacaoId:int}")]
+        public async Task<IActionResult> ObterUsuarioPorSituacaoIdAsync(int situacaoId)
+        {
+            var instituicaoEnsino = await _instituicaoEnsinoService.ObterPorSituacaoAsync(situacaoId);
+            return Ok(instituicaoEnsino);
+        }
 
         /// <summary>
         /// Altera um instituição de ensino

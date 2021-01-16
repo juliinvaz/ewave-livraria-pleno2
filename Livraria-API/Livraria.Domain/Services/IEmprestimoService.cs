@@ -10,5 +10,6 @@ namespace Livraria.Domain.Services
     {
         Task CriarAsync(int usuarioId, int livroId);
         Task DevolverAsync(int id);
+        Task<IEnumerable<Emprestimo>> ObterTodosAsync();
     }
 }

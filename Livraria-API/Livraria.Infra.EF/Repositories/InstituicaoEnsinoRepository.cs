@@ -1,6 +1,7 @@
 ﻿using Livraria.Domain.Models;
 using Livraria.Domain.Repositories;
 using Livraria.Infra.Extentions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,5 +27,18 @@ namespace Livraria.Infra.EF.Repositories
 
             return Task.FromResult(result);
         }
+        public async Task<IEnumerable<InstituicaoEnsino>> ObterInstituicaoEnsinoPorSituacaoAsync(int situacaoId)
+        {
+            var insituicaoEnsino = await Context.Set<InstituicaoEnsino>().IgnoreAutoIncludes().Where(x => x.SituacaoId == situacaoId).ToListAsync();
+
+            return insituicaoEnsino;
+        }
+
+        public async Task<IEnumerable<InstituicaoEnsino>> ObterTodosInstituicaoEnsinoAsync()
+        {
+            var insituicaoEnsino = await Context.Set<InstituicaoEnsino>().IgnoreAutoIncludes().ToListAsync();
+            return insituicaoEnsino;
+        }
     }
 }
+

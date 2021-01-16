@@ -30,6 +30,28 @@ namespace Livraria.API.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Retorna todos os usuarios
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("")]
+        public async Task<IActionResult> ObterTodosAsync()
+        {
+            var usuario = await _usuarioService.ObterTodosAsync();
+            return Ok(usuario);
+        }
+
+        /// <summary>
+        /// Retorna usuarios por SituacaoId
+        /// </summary>
+        /// <param name="situacaoId"> Id da Situação</param>
+        /// <returns></returns>
+        [HttpGet("por-situacao/{situacaoId:int}")]
+        public async Task<IActionResult> ObterUsuarioPorSituacaoIdAsync(int situacaoId)
+        {
+            var usuario = await _usuarioService.ObterPorSituacaoAsync(situacaoId);
+            return Ok(usuario);
+        }
 
         /// <summary>
         /// Altera um usuário

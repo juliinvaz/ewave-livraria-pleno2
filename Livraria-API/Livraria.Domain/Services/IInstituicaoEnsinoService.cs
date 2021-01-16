@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Livraria.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,5 +12,7 @@ namespace Livraria.Domain.Services
         Task AlterarAsync(int id, string nome, string cnpj, string telefone, int cidadeId, string logadouro, string cep, string numero);
         Task AtivarAsync(int id);
         Task InativarAsync(int id);
+        Task<IEnumerable<InstituicaoEnsino>> ObterTodosAsync();
+        Task<IEnumerable<InstituicaoEnsino>> ObterPorSituacaoAsync(int situacaoId);
     }
 }

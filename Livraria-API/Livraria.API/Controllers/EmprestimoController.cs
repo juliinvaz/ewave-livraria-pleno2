@@ -28,7 +28,19 @@ namespace Livraria.API.Controllers
             await _emprestimoService.CriarAsync(dto.UsuarioId, dto.LivroId);
             await UnitOfWork.CommitAsync();
             return Ok();
-        }   
+        }
+
+        /// <summary>
+        /// Retorna todos os emprestimos
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("")]
+        public async Task<IActionResult> ObterTodosAsync()
+        {
+            var emprestimo = await _emprestimoService.ObterTodosAsync();
+            return Ok(emprestimo);
+        }
+
 
         /// <summary>
         /// Devolve um emprestimo.
